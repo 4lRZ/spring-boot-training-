@@ -1,13 +1,8 @@
 package com.alrz.cursomc.config;
 
-import com.alrz.cursomc.entities.CategoriaEntity;
-import com.alrz.cursomc.entities.CidadeEntity;
-import com.alrz.cursomc.entities.EstadoEntity;
-import com.alrz.cursomc.entities.ProdutoEntity;
-import com.alrz.cursomc.repositories.CategoriaRepository;
-import com.alrz.cursomc.repositories.CidadeRepository;
-import com.alrz.cursomc.repositories.EstadoRepository;
-import com.alrz.cursomc.repositories.ProdutoRepository;
+import com.alrz.cursomc.entities.*;
+import com.alrz.cursomc.entities.enums.TipoCliente;
+import com.alrz.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +27,12 @@ public class Instantiation implements CommandLineRunner {
     @Autowired
     CidadeRepository cidadeRepository;
 
+    @Autowired
+    ClienteRepository clienteRepository;
+
+    @Autowired
+    EnderecoRepository enderecoRepository;
+
     @Override
     public void run(String... args) throws Exception {
         ProdutoEntity p1 = new ProdutoEntity(null, "Computador", 2000.00);
@@ -48,6 +49,10 @@ public class Instantiation implements CommandLineRunner {
         CidadeEntity c2 = new CidadeEntity(null, "São Paulo", est2);
         CidadeEntity c3 = new CidadeEntity(null, "Campinas", est2);
 
+        ClienteEntity cli1 = new ClienteEntity(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+
+        EnderecoEntity e1 = new EnderecoEntity(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
+        EnderecoEntity e2 = new EnderecoEntity(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
 
         cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
         cat2.getProdutos().addAll(List.of(p2));
@@ -58,10 +63,15 @@ public class Instantiation implements CommandLineRunner {
         est1.getCidades().addAll(List.of(c1));
         est2.getCidades().addAll(Arrays.asList(c2,c3));
 
+        cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+        cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
         categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
         estadoRepository.saveAll(Arrays.asList(est1,est2));
         cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+        clienteRepository.saveAll(List.of(cli1));
+        enderecoRepository.saveAll(Arrays.asList(e1,e2));
 
 
     }

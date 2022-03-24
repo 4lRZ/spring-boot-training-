@@ -18,7 +18,9 @@ public class CidadeEntity implements Serializable {
     @JoinColumn(name = "estado_id")
     private EstadoEntity estado;
 
-    public CidadeEntity(){}
+    public CidadeEntity() {
+    }
+
     public CidadeEntity(Long id, String nome, EstadoEntity estado) {
         this.id = id;
         this.nome = nome;
