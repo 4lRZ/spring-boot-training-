@@ -6,24 +6,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
 @Entity
-@Table(name = "CATEGORIA")
-public class CategoriaEntity implements Serializable {
+@Table(name = "PRODUTO")
+public class ProdutoEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    private Double preco;
 
-    @ManyToMany(mappedBy ="categorias")
-    private List<ProdutoEntity> produtos = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "PRODUTO_CATEGORIA",
+            joinColumns = @JoinColumn(name = "PRODUTO_ID"),
+            inverseJoinColumns = @JoinColumn(name = "CATEGORIA_ID")
+    )
+    private List<CategoriaEntity> categorias = new ArrayList<>();
 
-    public CategoriaEntity() {}
-    public CategoriaEntity(Long id, String nome) {
+    public ProdutoEntity() {
+    }
+    public ProdutoEntity(Long id, String nome, Double preco) {
         this.id = id;
         this.nome = nome;
+        this.preco = preco;
     }
 
     public Long getId() {
@@ -42,16 +48,24 @@ public class CategoriaEntity implements Serializable {
         this.nome = nome;
     }
 
-    public List<ProdutoEntity> getProdutos() {
-        return produtos;
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public List<CategoriaEntity> getCategorias() {
+        return categorias;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CategoriaEntity categoria = (CategoriaEntity) o;
-        return Objects.equals(id, categoria.id);
+        ProdutoEntity that = (ProdutoEntity) o;
+        return Objects.equals(id, that.id);
     }
 
     @Override
