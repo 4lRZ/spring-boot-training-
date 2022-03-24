@@ -1,5 +1,7 @@
 package com.alrz.cursomc.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class EstadoEntity implements Serializable {
     private Long id;
     private String nome;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "estado")
     private List<CidadeEntity> cidades = new ArrayList<>();
 
