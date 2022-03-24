@@ -1,33 +1,31 @@
-package com.alrz.cursomc.domain;
+package com.alrz.cursomc.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Categoria implements Serializable {
+@Table(name = "categoria")
+public class CategoriaEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String nome;
 
-    public Categoria() {}
+    public CategoriaEntity() {}
 
-    public Categoria(Integer id, String nome) {
+    public CategoriaEntity(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,7 +41,7 @@ public class Categoria implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
+        CategoriaEntity categoria = (CategoriaEntity) o;
         return Objects.equals(id, categoria.id);
     }
 
