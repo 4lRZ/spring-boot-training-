@@ -1,5 +1,6 @@
 package com.alrz.cursomc.controllers;
 
+import com.alrz.cursomc.dto.CategoriaDTO;
 import com.alrz.cursomc.entities.CategoriaEntity;
 import com.alrz.cursomc.services.CategoriaService;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -46,6 +48,12 @@ public class CategoriaController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         SERVICE.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+        List<CategoriaDTO> listDTO = SERVICE.findAll();
+        return ResponseEntity.ok().body(listDTO);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.alrz.cursomc.services;
 
+import com.alrz.cursomc.dto.CategoriaDTO;
 import com.alrz.cursomc.entities.CategoriaEntity;
 import com.alrz.cursomc.repositories.CategoriaRepository;
 import com.alrz.cursomc.services.exceptions.DataIntegrityException;
@@ -7,7 +8,9 @@ import com.alrz.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoriaService {
@@ -28,9 +31,9 @@ public class CategoriaService {
         return REPOSITORY.save(obj);
     }
 
-    public CategoriaEntity update(CategoriaEntity obj) {
+    public void update(CategoriaEntity obj) {
         find(obj.getId());
-        return REPOSITORY.save(obj);
+        REPOSITORY.save(obj);
     }
 
     public void delete(Long id) {
@@ -40,5 +43,12 @@ public class CategoriaService {
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos associado");
         }
+    }
+
+    public List<CategoriaDTO> findAll() {
+        List<CategoriaEntity> list = REPOSITORY.findAll();
+        return list.stream()
+                .map(CategoriaDTO::new)
+                .collect(Collectors.toList());
     }
 }
