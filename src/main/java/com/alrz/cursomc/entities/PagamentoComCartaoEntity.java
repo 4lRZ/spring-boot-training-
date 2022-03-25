@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PAGAMENTOCOMCARTAO")
-public class PagamentoComCartaoEntity extends PagamentoEntity{
+public class PagamentoComCartaoEntity extends PagamentoEntity {
     private Integer numeroDeParcelas;
 
     public PagamentoComCartaoEntity() {

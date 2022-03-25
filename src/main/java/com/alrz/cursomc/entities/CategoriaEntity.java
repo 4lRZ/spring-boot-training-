@@ -1,7 +1,5 @@
 package com.alrz.cursomc.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,11 +18,12 @@ public class CategoriaEntity implements Serializable {
     private Long id;
     private String nome;
 
-    @JsonManagedReference
-    @ManyToMany(mappedBy ="categorias")
+    @ManyToMany(mappedBy = "categorias")
     private List<ProdutoEntity> produtos = new ArrayList<>();
 
-    public CategoriaEntity() {}
+    public CategoriaEntity() {
+    }
+
     public CategoriaEntity(Long id, String nome) {
         this.id = id;
         this.nome = nome;

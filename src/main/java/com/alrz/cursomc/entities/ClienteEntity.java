@@ -1,8 +1,7 @@
 package com.alrz.cursomc.entities;
 
 import com.alrz.cursomc.entities.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,7 +20,6 @@ public class ClienteEntity implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<EnderecoEntity> enderecos = new ArrayList<>();
 
@@ -29,7 +27,7 @@ public class ClienteEntity implements Serializable {
     @CollectionTable(name = "TELEFONE", joinColumns = @JoinColumn(name = "CLIENTE_ID"))
     private Set<String> telefones = new HashSet<>();
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<PedidoEntity> pedidos = new ArrayList<>();
 

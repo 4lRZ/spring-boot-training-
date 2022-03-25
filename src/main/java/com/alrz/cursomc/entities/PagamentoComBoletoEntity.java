@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "PAGAMENTOCOMBOLETO")
-public class PagamentoComBoletoEntity extends PagamentoEntity{
+public class PagamentoComBoletoEntity extends PagamentoEntity {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataVencimento;
@@ -17,7 +17,8 @@ public class PagamentoComBoletoEntity extends PagamentoEntity{
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataPagamento;
 
-    public PagamentoComBoletoEntity() {}
+    public PagamentoComBoletoEntity() {
+    }
 
     public PagamentoComBoletoEntity(Long id, EstadoPagamento estado, PedidoEntity pedido, Date dataVencimento, Date dataPagamento) {
         super(id, estado, pedido);

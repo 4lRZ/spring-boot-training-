@@ -1,6 +1,5 @@
 package com.alrz.cursomc.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -18,7 +17,7 @@ public class ProdutoEntity implements Serializable {
     private String nome;
     private Double preco;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA",
             joinColumns = @JoinColumn(name = "PRODUTO_ID"),
@@ -32,6 +31,7 @@ public class ProdutoEntity implements Serializable {
 
     public ProdutoEntity() {
     }
+
     public ProdutoEntity(Long id, String nome, Double preco) {
         this.id = id;
         this.nome = nome;

@@ -12,14 +12,6 @@ public enum TipoCliente {
         this.descricao = descricao;
     }
 
-    public int getCod() {
-        return cod;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
     public static TipoCliente toEnum(Integer cod) {
         if (cod == null) {
             return null;
@@ -31,5 +23,13 @@ public enum TipoCliente {
             }
         }
         throw new IllegalArgumentException("Id inválido: " + cod);
+    }
+
+    public int getCod() {
+        return cod;
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 }

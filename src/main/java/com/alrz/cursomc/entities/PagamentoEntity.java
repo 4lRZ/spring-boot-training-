@@ -1,7 +1,7 @@
 package com.alrz.cursomc.entities;
 
 import com.alrz.cursomc.entities.enums.EstadoPagamento;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,13 +16,14 @@ public abstract class PagamentoEntity implements Serializable {
     private Long id;
     private Integer estado;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
     private PedidoEntity pedido;
 
-    public PagamentoEntity() {}
+    public PagamentoEntity() {
+    }
 
     public PagamentoEntity(Long id, EstadoPagamento estado, PedidoEntity pedido) {
         this.id = id;

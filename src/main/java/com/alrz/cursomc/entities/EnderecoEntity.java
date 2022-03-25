@@ -1,7 +1,7 @@
 package com.alrz.cursomc.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,7 +21,7 @@ public class EnderecoEntity implements Serializable {
     private String bairro;
     private String cep;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "CLIENTE_ID")
     private ClienteEntity cliente;

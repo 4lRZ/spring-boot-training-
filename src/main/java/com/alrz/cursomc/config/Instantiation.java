@@ -78,7 +78,7 @@ public class Instantiation implements CommandLineRunner {
 
         ped1.setPagamento(pagto1);
         ped2.setPagamento(pagto2);
-        ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+        ped1.getItens().addAll(Arrays.asList(ip1, ip2));
         ped2.getItens().addAll(List.of(ip3));
         cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
         cat2.getProdutos().addAll(List.of(p2));
