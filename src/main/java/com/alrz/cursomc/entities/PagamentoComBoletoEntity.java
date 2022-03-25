@@ -1,6 +1,7 @@
 package com.alrz.cursomc.entities;
 
 import com.alrz.cursomc.entities.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,7 +10,11 @@ import java.util.Date;
 @Entity
 @Table(name = "PAGAMENTOCOMBOLETO")
 public class PagamentoComBoletoEntity extends PagamentoEntity{
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataVencimento;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataPagamento;
 
     public PagamentoComBoletoEntity() {}

@@ -1,6 +1,7 @@
 package com.alrz.cursomc.entities;
 
 import com.alrz.cursomc.entities.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ public abstract class PagamentoEntity implements Serializable {
     private Long id;
     private Integer estado;
 
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId

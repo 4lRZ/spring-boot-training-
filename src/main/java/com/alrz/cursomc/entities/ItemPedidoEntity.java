@@ -1,5 +1,7 @@
 package com.alrz.cursomc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -11,6 +13,7 @@ import java.util.Objects;
 public class ItemPedidoEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
 
@@ -29,6 +32,7 @@ public class ItemPedidoEntity implements Serializable {
         this.preco = preco;
     }
 
+    @JsonIgnore
     public PedidoEntity getPedido() {
         return id.getPedido();
     }

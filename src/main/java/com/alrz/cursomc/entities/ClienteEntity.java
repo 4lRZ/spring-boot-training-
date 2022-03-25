@@ -1,6 +1,7 @@
 package com.alrz.cursomc.entities;
 
 import com.alrz.cursomc.entities.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class ClienteEntity implements Serializable {
     @CollectionTable(name = "TELEFONE", joinColumns = @JoinColumn(name = "CLIENTE_ID"))
     private Set<String> telefones = new HashSet<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "cliente")
     private List<PedidoEntity> pedidos = new ArrayList<>();
 
