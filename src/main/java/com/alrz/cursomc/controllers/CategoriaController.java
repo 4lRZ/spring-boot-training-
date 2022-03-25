@@ -38,7 +38,13 @@ public class CategoriaController {
     @RequestMapping(value="/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody CategoriaEntity obj, @PathVariable Long id) {
         obj.setId(id);
-        obj = SERVICE.update(obj);
+        SERVICE.update(obj);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        SERVICE.delete(id);
         return ResponseEntity.noContent().build();
     }
 
