@@ -41,6 +41,9 @@ public class Instantiation implements CommandLineRunner {
     @Autowired
     PagamentoRepository pagamentoRepository;
 
+    @Autowired
+    ItemPedidoRepository itemPedidoRepository;
+
     @Override
     public void run(String... args) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -69,13 +72,22 @@ public class Instantiation implements CommandLineRunner {
         PagamentoEntity pagto1 = new PagamentoComCartaoEntity(null, EstadoPagamento.QUITADO, ped1, 6);
         PagamentoEntity pagto2 = new PagamentoComBoletoEntity(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
 
+        ItemPedidoEntity ip1 = new ItemPedidoEntity(ped1, p1, 0.00, 1, 2000.00);
+        ItemPedidoEntity ip2 = new ItemPedidoEntity(ped1, p3, 0.00, 2, 80.00);
+        ItemPedidoEntity ip3 = new ItemPedidoEntity(ped2, p2, 100.00, 1, 800.00);
+
         ped1.setPagamento(pagto1);
         ped2.setPagamento(pagto2);
+        ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+        ped2.getItens().addAll(List.of(ip3));
         cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
         cat2.getProdutos().addAll(List.of(p2));
         p1.getCategorias().addAll(List.of(cat1));
         p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
         p3.getCategorias().addAll(List.of(cat1));
+        p1.getItens().addAll(List.of(ip1));
+        p2.getItens().addAll(List.of(ip3));
+        p3.getItens().addAll(List.of(ip2));
 
         est1.getCidades().addAll(List.of(c1));
         est2.getCidades().addAll(Arrays.asList(c2, c3));
@@ -92,7 +104,7 @@ public class Instantiation implements CommandLineRunner {
         enderecoRepository.saveAll(Arrays.asList(e1, e2));
         pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
         pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
-
+        itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 
     }
 }
