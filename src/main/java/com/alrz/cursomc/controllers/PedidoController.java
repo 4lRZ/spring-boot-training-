@@ -20,7 +20,7 @@ public class PedidoController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<PedidoEntity> findById(@PathVariable Long id) {
-        PedidoEntity obj = SERVICE.findById(id);
+        PedidoEntity obj = SERVICE.find(id);
         return ResponseEntity.ok().body(obj);
     }
 

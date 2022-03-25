@@ -16,7 +16,7 @@ public class PedidoService {
         REPOSITORY = repository;
     }
 
-    public PedidoEntity findById(Long id) {
+    public PedidoEntity find(Long id) {
         Optional<PedidoEntity> find = REPOSITORY.findById(id);
         return find.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + PedidoEntity.class.getName()));
     }

@@ -16,13 +16,18 @@ public class CategoriaService {
         REPOSITORY = repository;
     }
 
-    public CategoriaEntity findById(Long id) {
+    public CategoriaEntity find(Long id) {
         Optional<CategoriaEntity> find = REPOSITORY.findById(id);
         return find.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + CategoriaEntity.class.getName()));
     }
 
     public CategoriaEntity insert(CategoriaEntity obj) {
+        find(obj.getId());
         obj.setId(null);
+        return REPOSITORY.save(obj);
+    }
+
+    public CategoriaEntity update(CategoriaEntity obj) {
         return REPOSITORY.save(obj);
     }
 }

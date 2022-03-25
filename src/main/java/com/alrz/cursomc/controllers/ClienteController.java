@@ -20,7 +20,7 @@ public class ClienteController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ClienteEntity> findById(@PathVariable Long id) {
-        ClienteEntity obj = SERVICE.findById(id);
+        ClienteEntity obj = SERVICE.find(id);
         return ResponseEntity.ok().body(obj);
     }
 
