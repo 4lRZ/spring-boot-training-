@@ -1,6 +1,7 @@
 package com.alrz.cursomc.config;
 
 import com.alrz.cursomc.entities.*;
+import com.alrz.cursomc.entities.enums.EstadoPagamento;
 import com.alrz.cursomc.entities.enums.TipoCliente;
 import com.alrz.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,8 +35,15 @@ public class Instantiation implements CommandLineRunner {
     @Autowired
     EnderecoRepository enderecoRepository;
 
+    @Autowired
+    PedidoRepository pedidoRepository;
+
+    @Autowired
+    PagamentoRepository pagamentoRepository;
+
     @Override
     public void run(String... args) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         ProdutoEntity p1 = new ProdutoEntity(null, "Computador", 2000.00);
         ProdutoEntity p2 = new ProdutoEntity(null, "Impressora", 800.00);
         ProdutoEntity p3 = new ProdutoEntity(null, "Mouse", 80.00);
@@ -54,6 +63,14 @@ public class Instantiation implements CommandLineRunner {
         EnderecoEntity e1 = new EnderecoEntity(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
         EnderecoEntity e2 = new EnderecoEntity(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
 
+        PedidoEntity ped1 = new PedidoEntity(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+        PedidoEntity ped2 = new PedidoEntity(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+
+        PagamentoEntity pagto1 = new PagamentoComCartaoEntity(null, EstadoPagamento.QUITADO, ped1, 6);
+        PagamentoEntity pagto2 = new PagamentoComBoletoEntity(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+
+        ped1.setPagamento(pagto1);
+        ped2.setPagamento(pagto2);
         cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
         cat2.getProdutos().addAll(List.of(p2));
         p1.getCategorias().addAll(List.of(cat1));
@@ -61,17 +78,20 @@ public class Instantiation implements CommandLineRunner {
         p3.getCategorias().addAll(List.of(cat1));
 
         est1.getCidades().addAll(List.of(c1));
-        est2.getCidades().addAll(Arrays.asList(c2,c3));
+        est2.getCidades().addAll(Arrays.asList(c2, c3));
 
         cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
         cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+        cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 
         categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
-        estadoRepository.saveAll(Arrays.asList(est1,est2));
-        cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+        estadoRepository.saveAll(Arrays.asList(est1, est2));
+        cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
         clienteRepository.saveAll(List.of(cli1));
-        enderecoRepository.saveAll(Arrays.asList(e1,e2));
+        enderecoRepository.saveAll(Arrays.asList(e1, e2));
+        pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+        pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 
 
     }

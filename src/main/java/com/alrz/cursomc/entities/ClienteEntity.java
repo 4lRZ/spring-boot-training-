@@ -28,6 +28,9 @@ public class ClienteEntity implements Serializable {
     @CollectionTable(name = "TELEFONE", joinColumns = @JoinColumn(name = "CLIENTE_ID"))
     private Set<String> telefones = new HashSet<>();
 
+    @OneToMany(mappedBy = "cliente")
+    private List<PedidoEntity> pedidos = new ArrayList<>();
+
     public ClienteEntity() {
     }
 
@@ -85,6 +88,10 @@ public class ClienteEntity implements Serializable {
 
     public Set<String> getTelefones() {
         return telefones;
+    }
+
+    public List<PedidoEntity> getPedidos() {
+        return pedidos;
     }
 
     @Override
