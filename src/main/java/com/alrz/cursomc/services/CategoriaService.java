@@ -6,6 +6,9 @@ import com.alrz.cursomc.repositories.CategoriaRepository;
 import com.alrz.cursomc.services.exceptions.DataIntegrityException;
 import com.alrz.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,4 +54,12 @@ public class CategoriaService {
                 .map(CategoriaDTO::new)
                 .collect(Collectors.toList());
     }
+
+    public Page<CategoriaDTO> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction),
+                orderBy);
+        Page<CategoriaEntity> list = REPOSITORY.findAll(pageRequest);
+        return list.map(CategoriaDTO::new);
+    }
+
 }

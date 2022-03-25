@@ -53,6 +53,11 @@ public class Instantiation implements CommandLineRunner {
 
         CategoriaEntity cat1 = new CategoriaEntity(null, "Informática");
         CategoriaEntity cat2 = new CategoriaEntity(null, "Escritório");
+        CategoriaEntity cat3 = new CategoriaEntity(null, "Cama mesa e banho");
+        CategoriaEntity cat4 = new CategoriaEntity(null, "Eletrônicos");
+        CategoriaEntity cat5 = new CategoriaEntity(null, "Jardinagem");
+        CategoriaEntity cat6 = new CategoriaEntity(null, "Decoração");
+        CategoriaEntity cat7 = new CategoriaEntity(null, "Perfumaria");
 
         EstadoEntity est1 = new EstadoEntity(null, "Minas Gerais");
         EstadoEntity est2 = new EstadoEntity(null, "São Paulo");
@@ -96,7 +101,7 @@ public class Instantiation implements CommandLineRunner {
         cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
         cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 
-        categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
+        categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
         estadoRepository.saveAll(Arrays.asList(est1, est2));
         cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
