@@ -62,4 +62,8 @@ public class CategoriaService {
         return list.map(CategoriaDTO::new);
     }
 
+    public CategoriaEntity fromDTO(CategoriaDTO objDto) {
+        return new CategoriaEntity(objDto.getId(), objDto.getNome());
+    }
+
 }
