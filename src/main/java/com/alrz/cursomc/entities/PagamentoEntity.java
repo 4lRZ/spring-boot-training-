@@ -27,7 +27,7 @@ public abstract class PagamentoEntity implements Serializable {
 
     public PagamentoEntity(Long id, EstadoPagamento estado, PedidoEntity pedido) {
         this.id = id;
-        this.estado = estado.getCod();
+        this.estado = (estado == null) ? null : estado.getCod();
         this.pedido = pedido;
     }
 
