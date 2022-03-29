@@ -1,14 +1,16 @@
 package com.alrz.cursomc.controllers;
 
 import com.alrz.cursomc.dto.ClienteDTO;
-import com.alrz.cursomc.entities.ClienteEntity;
+import com.alrz.cursomc.dto.ClienteNewDTO;
 import com.alrz.cursomc.entities.ClienteEntity;
 import com.alrz.cursomc.services.ClienteService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -25,6 +27,18 @@ public class ClienteController {
     public ResponseEntity<ClienteEntity> findById(@PathVariable Long id) {
         ClienteEntity obj = SERVICE.find(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
+        ClienteEntity obj = SERVICE.fromDTO(objDto);
+        obj = SERVICE.insert(obj);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(obj.getId())
+                .toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
