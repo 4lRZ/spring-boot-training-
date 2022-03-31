@@ -3,6 +3,7 @@ package com.alrz.cursomc.services;
 import com.alrz.cursomc.controllers.utils.URL;
 import com.alrz.cursomc.dto.ProdutoDTO;
 import com.alrz.cursomc.entities.CategoriaEntity;
+import com.alrz.cursomc.entities.PagamentoEntity;
 import com.alrz.cursomc.entities.ProdutoEntity;
 import com.alrz.cursomc.repositories.CategoriaRepository;
 import com.alrz.cursomc.repositories.ProdutoRepository;
