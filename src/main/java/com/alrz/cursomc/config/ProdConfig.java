@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import java.text.ParseException;
 
 @Configuration
-@Profile("Prod")
+@Profile("prod")
 public class ProdConfig {
 
     private final DBService dbService;
