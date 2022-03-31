@@ -50,6 +50,14 @@ public class Instantiation implements CommandLineRunner {
         ProdutoEntity p1 = new ProdutoEntity(null, "Computador", 2000.00);
         ProdutoEntity p2 = new ProdutoEntity(null, "Impressora", 800.00);
         ProdutoEntity p3 = new ProdutoEntity(null, "Mouse", 80.00);
+        ProdutoEntity p4 = new ProdutoEntity(null, "Mesa de escritório", 300.00);
+        ProdutoEntity p5 = new ProdutoEntity(null, "Toalha", 50.00);
+        ProdutoEntity p6 = new ProdutoEntity(null, "Colcha", 200.00);
+        ProdutoEntity p7 = new ProdutoEntity(null, "Tv true color", 1200.00);
+        ProdutoEntity p8 = new ProdutoEntity(null, "Roçadeira", 800.00);
+        ProdutoEntity p9 = new ProdutoEntity(null, "Abajur", 100.00);
+        ProdutoEntity p10 = new ProdutoEntity(null, "Pendente", 180.00);
+        ProdutoEntity p11 = new ProdutoEntity(null, "Shampoo", 90.00);
 
         CategoriaEntity cat1 = new CategoriaEntity(null, "Informática");
         CategoriaEntity cat2 = new CategoriaEntity(null, "Escritório");
@@ -85,11 +93,28 @@ public class Instantiation implements CommandLineRunner {
         ped2.setPagamento(pagto2);
         ped1.getItens().addAll(Arrays.asList(ip1, ip2));
         ped2.getItens().addAll(List.of(ip3));
+
         cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
         cat2.getProdutos().addAll(List.of(p2));
-        p1.getCategorias().addAll(List.of(cat1));
-        p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
-        p3.getCategorias().addAll(List.of(cat1));
+        cat3.getProdutos().addAll(Arrays.asList(p5, p6));
+        cat4.getProdutos().addAll(Arrays.asList(p1, p2, p3, p7));
+        cat5.getProdutos().addAll(List.of(p8));
+        cat6.getProdutos().addAll(Arrays.asList(p9, p10));
+        cat7.getProdutos().addAll(List.of(p11));
+
+        p1.getCategorias().addAll(List.of(cat1, cat4));
+        p2.getCategorias().addAll(Arrays.asList(cat1, cat2, cat4));
+        p3.getCategorias().addAll(Arrays.asList(cat1, cat4));
+        p4.getCategorias().addAll(List.of(cat2));
+        p5.getCategorias().addAll(List.of(cat3));
+        p6.getCategorias().addAll(List.of(cat3));
+        p7.getCategorias().addAll(List.of(cat4));
+        p8.getCategorias().addAll(List.of(cat5));
+        p9.getCategorias().addAll(List.of(cat6));
+        p10.getCategorias().addAll(List.of(cat6));
+        p11.getCategorias().addAll(List.of(cat7));
+
+
         p1.getItens().addAll(List.of(ip1));
         p2.getItens().addAll(List.of(ip3));
         p3.getItens().addAll(List.of(ip2));
@@ -102,7 +127,7 @@ public class Instantiation implements CommandLineRunner {
         cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 
         categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
-        produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+        produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
         estadoRepository.saveAll(Arrays.asList(est1, est2));
         cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
         clienteRepository.saveAll(List.of(cli1));
