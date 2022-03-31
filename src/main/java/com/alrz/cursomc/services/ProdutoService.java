@@ -1,5 +1,7 @@
 package com.alrz.cursomc.services;
 
+import com.alrz.cursomc.controllers.utils.URL;
+import com.alrz.cursomc.dto.ProdutoDTO;
 import com.alrz.cursomc.entities.CategoriaEntity;
 import com.alrz.cursomc.entities.ProdutoEntity;
 import com.alrz.cursomc.repositories.CategoriaRepository;
@@ -29,10 +31,13 @@ public class ProdutoService {
         return find.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + ProdutoEntity.class.getName()));
     }
 
-    public Page<ProdutoEntity> search(String nome, List<Long> ids, Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<ProdutoDTO> search(String nome, String ids, Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction),
                 orderBy);
-        List<CategoriaEntity> categorias = CATEGORIA_REPOSITORY.findAllById(ids);
-        return PRODUTO_REPOSITORY.findDistinctByNomeContainingAndCategoriasIn(nome, categorias, pageRequest);
+        String nomeDecoded = URL.decodeParam(nome);
+        List<Long> categoriasIds = URL.decodeLongList(ids);
+        List<CategoriaEntity> categorias = CATEGORIA_REPOSITORY.findAllById(categoriasIds);
+        Page<ProdutoEntity> list = PRODUTO_REPOSITORY.findDistinctByNomeContainingAndCategoriasIn(nomeDecoded, categorias, pageRequest);
+        return list.map(ProdutoDTO::new);
     }
 }

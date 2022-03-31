@@ -35,10 +35,8 @@ public class ProdutoController {
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
             @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-        String nomeDecoded = URL.decodeParam(nome);
-        List<Long> ids = URL.decodeLongList(categorias);
-        Page<ProdutoEntity> list = SERVICE.search(nomeDecoded, ids, page, linesPerPage, orderBy, direction);
-        Page<ProdutoDTO> listDTO = list.map(ProdutoDTO::new);
+
+        Page<ProdutoDTO> listDTO = SERVICE.search(nome, categorias, page, linesPerPage, orderBy, direction);
         return ResponseEntity.ok().body(listDTO);
     }
 
