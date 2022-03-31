@@ -1,51 +1,43 @@
-package com.alrz.cursomc.config;
+package com.alrz.cursomc.services;
 
 import com.alrz.cursomc.entities.*;
 import com.alrz.cursomc.entities.enums.EstadoPagamento;
 import com.alrz.cursomc.entities.enums.TipoCliente;
 import com.alrz.cursomc.repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
-@Configuration
-@Profile("test")
-public class Instantiation implements CommandLineRunner {
+@Service
+public class DBService {
 
-    @Autowired
-    CategoriaRepository categoriaRepository;
+    final CategoriaRepository categoriaRepository;
+    final ProdutoRepository produtoRepository;
+    final EstadoRepository estadoRepository;
+    final CidadeRepository cidadeRepository;
+    final ClienteRepository clienteRepository;
+    final EnderecoRepository enderecoRepository;
+    final PedidoRepository pedidoRepository;
+    final PagamentoRepository pagamentoRepository;
+    final ItemPedidoRepository itemPedidoRepository;
 
-    @Autowired
-    ProdutoRepository produtoRepository;
+    public DBService(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository, EstadoRepository estadoRepository, CidadeRepository cidadeRepository, ClienteRepository clienteRepository, EnderecoRepository enderecoRepository, PedidoRepository pedidoRepository, PagamentoRepository pagamentoRepository, ItemPedidoRepository itemPedidoRepository) {
+        this.categoriaRepository = categoriaRepository;
+        this.produtoRepository = produtoRepository;
+        this.estadoRepository = estadoRepository;
+        this.cidadeRepository = cidadeRepository;
+        this.clienteRepository = clienteRepository;
+        this.enderecoRepository = enderecoRepository;
+        this.pedidoRepository = pedidoRepository;
+        this.pagamentoRepository = pagamentoRepository;
+        this.itemPedidoRepository = itemPedidoRepository;
+    }
 
-    @Autowired
-    EstadoRepository estadoRepository;
 
-    @Autowired
-    CidadeRepository cidadeRepository;
-
-    @Autowired
-    ClienteRepository clienteRepository;
-
-    @Autowired
-    EnderecoRepository enderecoRepository;
-
-    @Autowired
-    PedidoRepository pedidoRepository;
-
-    @Autowired
-    PagamentoRepository pagamentoRepository;
-
-    @Autowired
-    ItemPedidoRepository itemPedidoRepository;
-
-    @Override
-    public void run(String... args) throws Exception {
+    public void instantiateTestDatabase() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         ProdutoEntity p1 = new ProdutoEntity(null, "Computador", 2000.00);
         ProdutoEntity p2 = new ProdutoEntity(null, "Impressora", 800.00);
@@ -135,6 +127,5 @@ public class Instantiation implements CommandLineRunner {
         pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
         pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
         itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
-
     }
 }
