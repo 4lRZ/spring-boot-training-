@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 import java.text.ParseException;
 
 @Configuration
-@Profile("dev")
+@Profile({"dev","prod", "test"})
 public class DevConfig {
 
     @Value("${spring.jpa.hibernate.ddl-auto}")
